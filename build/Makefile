@@ -153,6 +153,30 @@ main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ordermatch.dir/build.make CMakeFiles/ordermatch.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+orderbook.o: orderbook.cpp.o
+.PHONY : orderbook.o
+
+# target to build an object file
+orderbook.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ordermatch.dir/build.make CMakeFiles/ordermatch.dir/orderbook.cpp.o
+.PHONY : orderbook.cpp.o
+
+orderbook.i: orderbook.cpp.i
+.PHONY : orderbook.i
+
+# target to preprocess a source file
+orderbook.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ordermatch.dir/build.make CMakeFiles/ordermatch.dir/orderbook.cpp.i
+.PHONY : orderbook.cpp.i
+
+orderbook.s: orderbook.cpp.s
+.PHONY : orderbook.s
+
+# target to generate assembly for a file
+orderbook.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ordermatch.dir/build.make CMakeFiles/ordermatch.dir/orderbook.cpp.s
+.PHONY : orderbook.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -165,6 +189,9 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... orderbook.o"
+	@echo "... orderbook.i"
+	@echo "... orderbook.s"
 .PHONY : help
 
 
