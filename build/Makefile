@@ -177,6 +177,30 @@ orderbook.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ordermatch.dir/build.make CMakeFiles/ordermatch.dir/orderbook.cpp.s
 .PHONY : orderbook.cpp.s
 
+tcp_reader.o: tcp_reader.cpp.o
+.PHONY : tcp_reader.o
+
+# target to build an object file
+tcp_reader.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ordermatch.dir/build.make CMakeFiles/ordermatch.dir/tcp_reader.cpp.o
+.PHONY : tcp_reader.cpp.o
+
+tcp_reader.i: tcp_reader.cpp.i
+.PHONY : tcp_reader.i
+
+# target to preprocess a source file
+tcp_reader.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ordermatch.dir/build.make CMakeFiles/ordermatch.dir/tcp_reader.cpp.i
+.PHONY : tcp_reader.cpp.i
+
+tcp_reader.s: tcp_reader.cpp.s
+.PHONY : tcp_reader.s
+
+# target to generate assembly for a file
+tcp_reader.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ordermatch.dir/build.make CMakeFiles/ordermatch.dir/tcp_reader.cpp.s
+.PHONY : tcp_reader.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -192,6 +216,9 @@ help:
 	@echo "... orderbook.o"
 	@echo "... orderbook.i"
 	@echo "... orderbook.s"
+	@echo "... tcp_reader.o"
+	@echo "... tcp_reader.i"
+	@echo "... tcp_reader.s"
 .PHONY : help
 
 

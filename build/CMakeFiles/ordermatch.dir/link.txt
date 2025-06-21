@@ -1,1 +1,1 @@
-/usr/bin/c++  -arch x86_64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/ordermatch.dir/main.cpp.o CMakeFiles/ordermatch.dir/orderbook.cpp.o -o ordermatch
+/usr/bin/c++  -arch x86_64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/ordermatch.dir/main.cpp.o CMakeFiles/ordermatch.dir/orderbook.cpp.o CMakeFiles/ordermatch.dir/tcp_reader.cpp.o -o ordermatch

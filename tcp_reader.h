@@ -1,0 +1,86 @@
+#include <boost/asio.hpp>
+#include <boost/lockfree/spsc_queue.hpp>
+#include <iostream>
+#include <thread>
+#include <vector>
+#include <atomic>
+#include <array>
+#include <chrono>
+#include <immintrin.h> 
+#include <atomic>
+#include "types.h"
+#pragma once
+
+
+using boost::asio::ip::tcp;
+using Byte  = unsigned char;                     // 8-bit byte
+using Clock = std::chrono::steady_clock;
+
+/*───────── lock-free ring that hands bytes to the book thread ─────────*/
+enum class FeedType : uint8_t {ADD=0, CANCEL, AMEND};  
+struct Event {
+    FeedType  type;
+    Order order;            // full order for Add; id + qty for others
+};   
+constexpr std::size_t QUEUE_CAP = 4096;
+using EventQueue = boost::lockfree::spsc_queue<Event,
+                                           boost::lockfree::capacity<QUEUE_CAP>>;
+  
+                                           
+#pragma pack(push, 1)
+struct WireHeader {
+    FeedType type;   
+};
+
+struct WireAdd {
+    WireHeader h;
+    uint64_t   orderId;
+    int64_t    price;      // fixed-point (e.g. price * 1e4)
+    int32_t    qty;
+    Side    side;    
+    OrderType orderType;   
+};
+
+struct WireCancel {
+    WireHeader h;
+    uint64_t   orderId;
+};
+
+struct WireAmend {
+    WireHeader h;
+    uint64_t   orderId;
+    int32_t    newQty;
+};
+#pragma pack(pop)
+class TcpReader : public std::enable_shared_from_this<TcpReader>{
+    public:
+    TcpReader(boost::asio::io_context& io, std::string host, uint16_t port, EventQueue& q);
+
+    void start();
+    void stop();
+
+    private:
+    /* core Asio plumbing */
+    boost::asio::io_context&  io_;
+    tcp::resolver             resolver_;
+    tcp::socket               socket_;
+    boost::asio::steady_timer reconnect_timer_;
+
+    /* cfg + state */
+    std::string  host_;
+    uint16_t     port_;
+    EventQueue&       out_;
+
+    /* scratch space for framing */
+    std::array<Byte, 2> hdr_buf_;
+    std::vector<Byte>   body_buf_;
+
+    void resolve();
+    void connect(const tcp::resolver::results_type& eps);
+    void read_header();
+    void read_body(std::size_t len);
+    void handle_error(const boost::system::error_code& ec);
+    void schedule_reconnect();
+    bool parseBodyToEvent(const void* p, std::size_t n, Event& ev);
+
+};
