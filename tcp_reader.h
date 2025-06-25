@@ -16,11 +16,10 @@ using boost::asio::ip::tcp;
 using Byte  = unsigned char;                     // 8-bit byte
 using Clock = std::chrono::steady_clock;
 
-/*───────── lock-free ring that hands bytes to the book thread ─────────*/
 enum class FeedType : uint8_t {ADD=0, CANCEL, AMEND};  
 struct Event {
     FeedType  type;
-    Order order;            // full order for Add; id + qty for others
+    Order order;            /
 };   
 constexpr std::size_t QUEUE_CAP = 4096;
 using EventQueue = boost::lockfree::spsc_queue<Event,
@@ -35,7 +34,7 @@ struct WireHeader {
 struct WireAdd {
     WireHeader h;
     uint64_t   orderId;
-    int64_t    price;      // fixed-point (e.g. price * 1e4)
+    int64_t    price;      
     int32_t    qty;
     Side    side;    
     OrderType orderType;   
@@ -60,18 +59,15 @@ class TcpReader : public std::enable_shared_from_this<TcpReader>{
     void stop();
 
     private:
-    /* core Asio plumbing */
     boost::asio::io_context&  io_;
     tcp::resolver             resolver_;
     tcp::socket               socket_;
     boost::asio::steady_timer reconnect_timer_;
 
-    /* cfg + state */
     std::string  host_;
     uint16_t     port_;
     EventQueue&       out_;
 
-    /* scratch space for framing */
     std::array<Byte, 2> hdr_buf_;
     std::vector<Byte>   body_buf_;
 

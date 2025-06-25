@@ -2,7 +2,6 @@
 
 extern std::atomic_bool quit;
 
-/*──────────────────────── TcpReader class ─────────────────────────────*/
     TcpReader::TcpReader(boost::asio::io_context& io,
               std::string              host,
               uint16_t                 port,
@@ -23,7 +22,6 @@ extern std::atomic_bool quit;
         boost::system::error_code ec; socket_.close(ec); 
     }
 
-    /*──────────────────── async steps ────────────────────*/
     void TcpReader::resolve() {
         resolver_.async_resolve(
             host_, std::to_string(port_),
@@ -93,7 +91,7 @@ extern std::atomic_bool quit;
         auto* hdr = static_cast<const WireHeader*>(p);
         switch (hdr->type)
         {
-            case FeedType::ADD: // ADD --------------------------------------------------
+            case FeedType::ADD: // ADD 
             {
                 if (n != sizeof(WireAdd)) return false;
                 auto* m  = static_cast<const WireAdd*>(p);
@@ -110,7 +108,7 @@ extern std::atomic_bool quit;
                 ev.order.type = orderType;
                 return true;
             }
-            case FeedType::CANCEL:  // CANCEL -----------------------------------------------
+            case FeedType::CANCEL:  // CANCEL 
             {
                 if (n != sizeof(WireCancel)) return false;
                 auto* m  = static_cast<const WireCancel*>(p);
@@ -119,7 +117,7 @@ extern std::atomic_bool quit;
                 ev.order.id        = m->orderId;
                 return true;
             }
-            case FeedType::AMEND:  // AMEND ------------------------------------------------
+            case FeedType::AMEND:  // AMEND
             {
                 if (n != sizeof(WireAmend)) return false;
                 auto* m  = static_cast<const WireAmend*>(p);
@@ -134,7 +132,7 @@ extern std::atomic_bool quit;
     }
 }
 
-    /*──────────── error + reconnect helpers ────────────*/
+
     void TcpReader::handle_error(const boost::system::error_code& ec) {
         if (ec == boost::asio::error::eof) {
             std::cerr << "EOF — shutting down\n";
@@ -142,8 +140,8 @@ extern std::atomic_bool quit;
             std::cerr << "read: " << ec.message() << '\n';
         }
 
-        quit = true;                 // signal book thread to exit its loop
-        socket_.close();             // closes gracefully
+        quit = true;                
+        socket_.close();             
         io_.stop();
     }
     void TcpReader::schedule_reconnect() {
@@ -153,40 +151,3 @@ extern std::atomic_bool quit;
             [self = shared_from_this()]
             (const boost::system::error_code& /*ec*/) { self->resolve(); });
     }
-/*
-void book_thread_fn(Queue& q, std::atomic_bool& stop_flag) {
-    while (!stop_flag) {
-        Message m;
-        while (q.pop(m)) {
-
-            std::cout << "msg len = " << m.data.size() << '\n';
-        }
-        std::this_thread::sleep_for(std::chrono::microseconds(10));
-    }
-}
-
-int main(int argc, char* argv[]) {
-    if (argc != 3) {
-        std::cerr << "usage: " << argv[0] << " <host> <port>\n";
-        return 1;
-    }
-
-    boost::asio::io_context io;
-    Queue ring;
-    auto reader = std::make_shared<TcpReader>(io, argv[1],
-                                              static_cast<uint16_t>(std::stoi(argv[2])),
-                                              ring);
-    reader->start();
-
-    std::thread net_thread([&]{ io.run(); });
-
-    std::atomic_bool quit{false};
-    std::thread book_thread(book_thread_fn, std::ref(ring), std::ref(quit));
-
-    boost::asio::signal_set sig(io, SIGINT, SIGTERM);
-    sig.async_wait([&](auto, int){ quit = true; reader->stop(); io.stop(); });
-
-    net_thread.join();
-    book_thread.join();
-    return 0;
-}*/
