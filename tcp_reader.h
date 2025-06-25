@@ -19,7 +19,7 @@ using Clock = std::chrono::steady_clock;
 enum class FeedType : uint8_t {ADD=0, CANCEL, AMEND};  
 struct Event {
     FeedType  type;
-    Order order;            /
+    Order order;            
 };   
 constexpr std::size_t QUEUE_CAP = 4096;
 using EventQueue = boost::lockfree::spsc_queue<Event,
