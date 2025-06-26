@@ -201,6 +201,30 @@ tcp_reader.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ordermatch.dir/build.make CMakeFiles/ordermatch.dir/tcp_reader.cpp.s
 .PHONY : tcp_reader.cpp.s
 
+websocket_reader.o: websocket_reader.cpp.o
+.PHONY : websocket_reader.o
+
+# target to build an object file
+websocket_reader.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ordermatch.dir/build.make CMakeFiles/ordermatch.dir/websocket_reader.cpp.o
+.PHONY : websocket_reader.cpp.o
+
+websocket_reader.i: websocket_reader.cpp.i
+.PHONY : websocket_reader.i
+
+# target to preprocess a source file
+websocket_reader.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ordermatch.dir/build.make CMakeFiles/ordermatch.dir/websocket_reader.cpp.i
+.PHONY : websocket_reader.cpp.i
+
+websocket_reader.s: websocket_reader.cpp.s
+.PHONY : websocket_reader.s
+
+# target to generate assembly for a file
+websocket_reader.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ordermatch.dir/build.make CMakeFiles/ordermatch.dir/websocket_reader.cpp.s
+.PHONY : websocket_reader.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -219,6 +243,9 @@ help:
 	@echo "... tcp_reader.o"
 	@echo "... tcp_reader.i"
 	@echo "... tcp_reader.s"
+	@echo "... websocket_reader.o"
+	@echo "... websocket_reader.i"
+	@echo "... websocket_reader.s"
 .PHONY : help
 
 

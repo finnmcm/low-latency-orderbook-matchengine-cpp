@@ -509,3 +509,45 @@ events:
       LTO support using: LLVM version 16.0.0 (static support for 29, runtime is 29)
       TAPI support using: Apple TAPI version 16.0.0 (tapi-1600.0.11.8)
 ...
+
+---
+events:
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/local/share/cmake/Modules/Internal/CheckSourceCompiles.cmake:104 (try_compile)"
+      - "/usr/local/share/cmake/Modules/CheckCSourceCompiles.cmake:58 (cmake_check_source_compiles)"
+      - "/usr/local/share/cmake/Modules/FindThreads.cmake:97 (check_c_source_compiles)"
+      - "/usr/local/share/cmake/Modules/FindThreads.cmake:163 (_threads_check_libc)"
+      - "/usr/local/share/cmake/Modules/CMakeFindDependencyMacro.cmake:78 (find_package)"
+      - "/usr/local/lib/cmake/boost_thread-1.88.0/boost_thread-config.cmake:118 (find_dependency)"
+      - "/usr/local/lib/cmake/Boost-1.88.0/BoostConfig.cmake:141 (find_package)"
+      - "/usr/local/lib/cmake/Boost-1.88.0/BoostConfig.cmake:262 (boost_find_component)"
+      - "/usr/local/share/cmake/Modules/FindBoost.cmake:609 (find_package)"
+      - "CMakeLists.txt:9 (find_package)"
+    directories:
+      source: "/Users/finnmcmillion/Desktop/PORTFOLIO/OrderMatch/build/CMakeFiles/CMakeScratch/TryCompile-hXfcwS"
+      binary: "/Users/finnmcmillion/Desktop/PORTFOLIO/OrderMatch/build/CMakeFiles/CMakeScratch/TryCompile-hXfcwS"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_OSX_ARCHITECTURES: ""
+      CMAKE_OSX_DEPLOYMENT_TARGET: ""
+      CMAKE_OSX_SYSROOT: ""
+    buildResult:
+      variable: "CMAKE_HAVE_LIBC_PTHREAD"
+      cached: true
+      stdout: |
+        Change Dir: '/Users/finnmcmillion/Desktop/PORTFOLIO/OrderMatch/build/CMakeFiles/CMakeScratch/TryCompile-hXfcwS'
+        
+        Run Build Command(s): /usr/local/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_2522b/fast
+        /Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_2522b.dir/build.make CMakeFiles/cmTC_2522b.dir/build
+        Building C object CMakeFiles/cmTC_2522b.dir/src.c.o
+        /usr/bin/cc -DCMAKE_HAVE_LIBC_PTHREAD  -arch x86_64 -MD -MT CMakeFiles/cmTC_2522b.dir/src.c.o -MF CMakeFiles/cmTC_2522b.dir/src.c.o.d -o CMakeFiles/cmTC_2522b.dir/src.c.o -c /Users/finnmcmillion/Desktop/PORTFOLIO/OrderMatch/build/CMakeFiles/CMakeScratch/TryCompile-hXfcwS/src.c
+        Linking C executable cmTC_2522b
+        /usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_2522b.dir/link.txt --verbose=1
+        /usr/bin/cc  -arch x86_64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/cmTC_2522b.dir/src.c.o -o cmTC_2522b
+        
+      exitCode: 0
+...

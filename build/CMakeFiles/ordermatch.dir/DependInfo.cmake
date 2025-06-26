@@ -11,6 +11,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/Users/finnmcmillion/Desktop/PORTFOLIO/OrderMatch/main.cpp" "CMakeFiles/ordermatch.dir/main.cpp.o" "gcc" "CMakeFiles/ordermatch.dir/main.cpp.o.d"
   "/Users/finnmcmillion/Desktop/PORTFOLIO/OrderMatch/orderbook.cpp" "CMakeFiles/ordermatch.dir/orderbook.cpp.o" "gcc" "CMakeFiles/ordermatch.dir/orderbook.cpp.o.d"
   "/Users/finnmcmillion/Desktop/PORTFOLIO/OrderMatch/tcp_reader.cpp" "CMakeFiles/ordermatch.dir/tcp_reader.cpp.o" "gcc" "CMakeFiles/ordermatch.dir/tcp_reader.cpp.o.d"
+  "/Users/finnmcmillion/Desktop/PORTFOLIO/OrderMatch/websocket_reader.cpp" "CMakeFiles/ordermatch.dir/websocket_reader.cpp.o" "gcc" "CMakeFiles/ordermatch.dir/websocket_reader.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.
